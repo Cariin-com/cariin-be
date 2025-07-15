@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  name     String
+  phone    String
+  password String
+  searchHistories SearchHistory[]
+  bookmarks       Bookmark[]
+}
+
+model Product {
+  id            String          @id @default(uuid())
+  name          String
+  description   String
+  averageRating Float?
+  totalReviews  Int?
+  imageUrl      String?
+  productPrices ProductPrice[]
+  bookmarks     Bookmark[]
+  createdAt     DateTime        @default(now())
+}
+
+model Ecommerce {
+  id         String          @id @default(uuid())
+  name       String
+  baseUrl    String
+  logoUrl    String?
+  productPrices ProductPrice[]
+}
+
+model ProductPrice {
+  id           String      @id @default(uuid())
+  product      Product     @relation(fields: [productId], references: [id])
+  productId    String
+  ecommerce    Ecommerce   @relation(fields: [ecommerceId], references: [id])
+  ecommerceId  String
+  price        Decimal
+  url          String
+  rating       Float?
+  reviews      Int?
+  lastChecked  DateTime    @default(now())
+}
+
+model SearchHistory {
+  id         String      @id @default(uuid())
+  user       User        @relation(fields: [userId], references: [id])
+  userId     Int
+  query      String
+  searchedAt DateTime    @default(now())
+}
+
+model Bookmark {
+  id         String      @id @default(uuid())
+  user       User        @relation(fields: [userId], references: [id])
+  userId     Int
+  product    Product     @relation(fields: [productId], references: [id])
+  productId  String
+  createdAt  DateTime    @default(now())
+}
