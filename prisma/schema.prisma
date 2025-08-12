@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -24,6 +24,7 @@ model Product {
   averageRating Float?
   totalReviews  Int?
   imageUrl      String?
+  src           String?         // URL sumber scraping
   productPrices ProductPrice[]
   bookmarks     Bookmark[]
   createdAt     DateTime        @default(now())
