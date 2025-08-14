@@ -4,6 +4,7 @@
   "description": "Cariin Backend API with PostgreSQL",
   "main": "index.ts",
   "scripts": {
+    "postinstall": "prisma generate",
     "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn --transpile-only index.ts",
     "build": "tsc",
