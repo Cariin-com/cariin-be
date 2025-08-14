@@ -1,6 +1,9 @@
 import pool from '../config/database';
 import axios from 'axios';
 import { Product, ProductSearchParams } from '../models/Product';
+import { log } from 'node:console';
+require('dotenv').config();
+
 
 export class ProductService {
   // Check if data needs update (simple implementation - can be enhanced)
@@ -62,18 +65,25 @@ export class ProductService {
   // Fetch products from FastAPI
   private async fetchProductsFromFastAPI(params: ProductSearchParams): Promise<Product[]> {
     try {
-      const fastApiUrl = process.env.FASTAPI_BASE_URL || 'http://localhost:8000';
+      const fastApiUrl = process.env.FASTAPI_BASE_URL || "http://localhost:8000";
+      console.log(fastApiUrl);
       const response = await axios.post(`${fastApiUrl}/scrape`, {
         search_query: params.search_query,
         max_products: params.max_products || 10,
         all_pages: params.all_pages || false,
         max_workers: params.max_workers || 8
       });
-
-      console.log('Products from FastAPI:', response.data.map((p: any) => ({ name: p.name, src: p.src })));
+      console.log(response.data);
       return response.data;
-    } catch (error) {
-      console.error('Error fetching products from FastAPI:', error);
+    } catch (error: any) {
+      // Log detail error dari axios
+      if (error.response) {
+        console.error('FastAPI response error:', error.response.status, error.response.data);
+      } else if (error.request) {
+        console.error('FastAPI no response:', error.request);
+      } else {
+        console.error('FastAPI error:', error.message);
+      }
       throw new Error('Failed to fetch products from FastAPI');
     }
   }

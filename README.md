@@ -53,7 +53,7 @@ DB_USER=postgres
 DB_PASSWORD=password
 
 # FastAPI Configuration
-FASTAPI_BASE_URL=http://localhost:8000
+FASTAPI_BASE_URL=https://bhineka-service.vercel.app
 
 # Server Configuration
 PORT=3000

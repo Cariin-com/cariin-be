@@ -19,7 +19,7 @@ const app = express();
 // Middleware
 app.use(helmet());
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  origin: ['http://localhost:3000', 'http://localhost:3001' ,'https://bhineka-service.vercel.app'],
   credentials: true
 }));
 app.use(morgan('combined'));
