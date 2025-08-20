@@ -7,9 +7,9 @@ import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 
-import userRoutes from './routes/userRoutes';
-import productRoutes from './routes/productRoutes';
-import { ProductService } from './services/productService';
+import userRoutes from '../routes/userRoutes';
+import productRoutes from '../routes/productRoutes';
+import { ProductService } from '../services/productService';
 
 // Load environment variables
 dotenv.config();
