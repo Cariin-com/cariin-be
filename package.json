@@ -7,7 +7,7 @@
     "postinstall": "prisma generate",
     "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn --transpile-only index.ts",
-    "build": "tsc",
+    "build": "tsc --outDir dist",
     "test": "jest"
   },
   "dependencies": {
